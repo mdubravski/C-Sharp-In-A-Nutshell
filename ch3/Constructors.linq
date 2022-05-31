@@ -8,6 +8,13 @@ Instance Constructor: initialize code on a class or struct. (make an instance of
 		unmanaged code modifiers: unsafe, extern  
 */
 
+
+Bunny b1 = new Bunny {Name="bo", LikesCarrots=true, LikesHumans=false};	// parameterless constructor
+Bunny b2 = new Bunny("buggs") {LikesCarrots=true, LikesHumans=false};	// Object Initalizers
+Bunny b3 = new Bunny(n:"sam",l1:true);	// optianal parameters
+Console.WriteLine(b3);
+
+
 var rect = new Rectangle(3,4);
 Console.WriteLine(rect);
 (var width, var height) = rect;	// deconstruction
@@ -63,11 +70,53 @@ class Rectangle
 	
 	public void Deconstruct(out float width, out float height)
 	{
-		width= Width;
+		width = Width;
 		height = Height;
 	}
 }
 
+
+/*
+Object Initalizers: any accessible fields or properties of an object can be set wia an obj initializer directly after construction
+*/
+class Bunny
+{
+	public string Name;
+	public bool LikesCarrots;
+	public bool LikesHumans;
+	
+	public Bunny(){}
+	public Bunny(string n) {Name = n;}
+	
+	public Bunny(string n, bool l1 = true, bool l2=false)	// optional paramters
+	{
+		Name = n;
+		LikesCarrots = l1;
+		LikesHumans = l2;
+	}
+}
+
+/*
+The this Reference: refers to the instance itsself
+	- also useful for disambiguating a local variable or param from a field
+*/
+
+public class Dog
+{
+	public Dog Mate;
+	
+	public void Marry(Dog partner)
+	{
+		Mate = partner;
+		partner.Mate = this;
+	}
+}
+
+public class Test
+{
+	string name;
+	public Test(string name){this.name = name;}
+}
 
 
 
