@@ -9,7 +9,19 @@
 Transformer t = Square;
 Console.WriteLine(t(2));
 
+int[] values = {1,2,3,4};
+Transform(values, Square);		// hook in Square method
+values.Dump();
+
+void Transform(int[] values, Transformer t)
+{
+	for(int i=0; i<values.Length; i++)
+		values[i] = t(values[i]);
+	
+}
+
 int Square (int x) => x*x;			// method that is compatable with Transformer delegate
+int Cube (int x) => x*x*x;
 
 delegate int Transformer (int x);	// delegate
 
