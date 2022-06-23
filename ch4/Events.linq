@@ -1,41 +1,9 @@
-<Query Kind="Statements" />
+<Query Kind="Expression" />
 
 /*
-	Events: a construct that exposes just the subset of delegate features required for the broadcasters/subscriber model.
-			The main purpose of events is to prevent subscribers from interfering with one another
-	Broadcaster: is a type that contains a delegaste field. Decides when to broadcast, by invoking a delegate
-	Subscriber: method target recipients. Decides when to start and stop listening by calling '+=' and "-=" on the broadcasters
-				delegate. Does not know about or interfear with other subscribers
+ Events: construct that exposes just the subset of delegate features required for the broadcaster/subscri ber model. The main purpose of events is to prevent subscribes from interfearing with one another.
+ 
+ Broadcaster: is a type that contains a delegate field. The broadcaster decides when to broadcast by invoking the delegate.
+ 
+ Subscriber: the mehtod targer recipients. A subscriber decides when to start and stop listening by calling += and -= on the broadcaser's delegate. A subscriber does not know about, or interfere with, other subscribers.
 */
-
-	// delegate defintion 
-public delegate void PriceChangedHandler (decimal oldPrice, decimal newPrice);
-
-public class Stock
-{
-	string symbol;
-	decimal price;
-	
-	private Stock(string symbol) => this.symbol = symbol;
-	
-	public event PriceChangedHandler PriceChanged;
-	
-	public decimal Price
-	{
-		get => Price;
-		set
-		{
-			if(price == value) return;			// exit if nothing has changed
-			decimal oldPrice = price;
-			price = value;
-			if(PriceChanged != null)			// if invocation list not empty, fire event 
-				PriceChanged (oldPrice, price);	
-		}
-	}
-}
-
-public class Broadcaster
-{
-	// event declaration
-	public event PriceChangedHandler PriceChanged;
-}
